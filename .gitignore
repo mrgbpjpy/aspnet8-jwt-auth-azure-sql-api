@@ -1,0 +1,12 @@
+bin/
+obj/
+*.user
+*.vscode
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+**/appsettings.*.local.json
+*.db
+*.mdf
+*.ldf
