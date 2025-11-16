@@ -1,0 +1,30 @@
+name: build-test-docker
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore ./src/Api/Api.csproj
+      - name: Build
+        run: dotnet build ./src/Api/Api.csproj -c Release --no-restore
+      - name: Publish
+        run: dotnet publish ./src/Api/Api.csproj -c Release -o out --no-build
+      # Optional Docker build/push (uncomment and set secrets)
+      # - name: Build Docker image
+      #   run: docker build -t ${{ secrets.DOCKER_REPO }}:${{ github.sha }} .
+      # - name: Login & Push
+      #   run: |
+      #     echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+      #     docker push ${{ secrets.DOCKER_REPO }}:${{ github.sha }}
