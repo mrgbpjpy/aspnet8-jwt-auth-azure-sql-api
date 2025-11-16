@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+**/.vs/
+**/*.UserSecrets/
+**/*.db
+**/*.mdf
+**/*.ldf
+.git
+.github
